@@ -27,7 +27,7 @@ public class ConnectionStringSettings_80_Enumerator : IEnumerator<IConnectionStr
                 throw new InvalidOperationException("Call MoveNext() first");
 
             var name = _enumerator.Value.Current;
-            return ConnectionStringSettings_80.Create(name, _map[name], "Unknown");
+            return ConnectionStringSettings_80.Create(name, _map[name], "SqlProvider");
         }
     }
 
