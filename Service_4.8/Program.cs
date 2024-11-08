@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SharedLibrary;
 
 namespace Service48
@@ -8,12 +8,24 @@ namespace Service48
     {
         private static void Main(string[] args)
         {
-            var appSettings = new AppSettingsWrapper(ConfigurationManager.AppSettings);
-            var connectionStrings = new ConnectionStringsWrapper(ConfigurationManager.ConnectionStrings);
+            var provider = ConfigureServices(services =>
+            {
+                // configure DI
+                services.AddApplicationServices();
+            });
 
             Console.WriteLine("Reading app.config file (.NET 4.8)");
-
-            SettingsConsumer.WriteSettings(appSettings, connectionStrings);
+            var report = provider.GetService<SystemSettingsReport>(); // <== netstandard2.0 type
+            report.WriteSettings();
         }
+
+        #region Boilerplate Code
+        private static IServiceProvider ConfigureServices(Action<IServiceCollection> configure)
+        {
+            var services = new ServiceCollection();
+            configure?.Invoke(services);
+            return services.BuildServiceProvider();
+        }
+        #endregion
     }
 }

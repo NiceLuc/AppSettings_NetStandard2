@@ -4,7 +4,7 @@ using SharedLibrary;
 
 namespace Service_80;
 
-public class ConnectionStringsWrapper(IConfiguration configuration) : IConnectionStringsV2
+public class ConnectionStringsWrapper(IConfiguration configuration) : IConnectionStrings
 {
     public IConnectionStringSettings this[string name] 
         => ConnectionStringSettings_80.Create(name, configuration.GetConnectionString(name) ?? "null", "Unknown");

@@ -5,7 +5,7 @@ using SharedLibrary;
 
 namespace Service48
 {
-    internal class ConnectionStringsWrapper : IConnectionStringsV2
+    internal class ConnectionStringsWrapper : IConnectionStrings
     {
         private readonly ConnectionStringSettingsCollection _connectionStrings;
 
